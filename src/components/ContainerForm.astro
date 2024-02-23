@@ -1,0 +1,126 @@
+<div class="bg-[#212936] max-w-[490px] w-full border-2 border-[#4D5562] rounded-lg p-10">
+  <div class="w-full flex-col form-container">
+    <h2 class="text-[#E5E7EB] text-2xl font-medium mb-5">Register</h2>
+
+    <form id="form" method="post">
+      <label for="nombre" class="text-[#A1A1A9] font-medium">
+        Name
+        <input class="mt-2 mb-4 w-full bg-transparent border-2 placeholder:text-sm placeholder:text-[#4D5562] border-[#A1A1A9] rounded-xl p-3 outline-none focus:border-[#E5E7EB]" type="text" placeholder="Enter your name" id="nombre" required />
+      </label>
+      <label for="email" class="text-[#A1A1A9] font-medium">
+        Email
+        <input class="mt-2 mb-4 w-full bg-transparent border-2 placeholder:text-sm placeholder:text-[#4D5562] border-[#A1A1A9] rounded-xl p-3 outline-none focus:border-[#E5E7EB]" type="text" placeholder="example@gmail.com" id="email" required />
+      </label>
+      
+      <button class="m-auto text-center flex self-center  rounded-3xl text-[#E5E7EB] bg-blue-800 font-medium mt-10 px-10 py-2 text-[1rem] bg-[linear-gradient(0deg,_rgba(101,44,209,1)_48%,_rgba(132,94,238,1)_100%)]" id="registerBtn">Continue</button>
+    </form>
+  </div>
+
+  <div class="w-full hidden skills-container">
+    <h2 class="text-[#E5E7EB] text-2xl font-medium mb-5 hidden">Which topics you are interested in?</h2>
+
+    <ul class="flex flex-col gap-4" >
+      <li class="skills border border-[#4D5562] p-3 rounded-lg bg-[#394150] text-[#A1A1A9] pointer">Software Development</li>
+      <li class="skills border border-[#4D5562] p-3 rounded-lg bg-[#394150] text-[#A1A1A9] pointer">User Experience</li>
+      <li class="skills border focus-within:text-[#000] border-[#4D5562] p-3 rounded-lg bg-[#394150] text-[#A1A1A9] pointer">Graphic Design</li>
+    </ul>
+
+    <button id="skills-button" class="m-auto text-center flex self-center  rounded-3xl text-[#E5E7EB] bg-blue-800 font-medium mt-10 px-10 py-2 text-[1rem] bg-[linear-gradient(0deg,_rgba(101,44,209,1)_48%,_rgba(132,94,238,1)_100%)]">Continue</button>
+  </div>
+
+  <div class="w-full hidden" id="info-container">
+    <h2 class="text-[#E5E7EB] text-2xl font-medium mb-5">Summary</h2>
+
+   <div class="mb-3">
+    <p>
+      <span class="text-[#A1A1A9]">Name:</span>
+      <span class="text-[#E5E7EB] font-medium" id="name-span">Wilberk</span>
+    </p>
+    <p>
+      <span class="text-[#A1A1A9]">Email:</span>
+      <span class="text-[#E5E7EB] font-medium" id="email-span">wilberkledezma51@gmail.com</span>
+    </p>
+   </div>
+    
+    <p class="text-[#A1A1A9]">Topics: </p>
+    <ul class="text-[#E5E7EB] list-disc pl-8" id="topics-container">
+    </ul>
+  </div>
+</div>
+
+<script>  
+  // Ojo este código JavaScript hay que tiparlo correctamente con TypeScript
+  const form = document.querySelector("#form") as HTMLFormElement
+  const topicsContainer = document.querySelector("#topics-container") as HTMLDivElement 
+  const infoContainer = document.querySelector("#info-container") as HTMLDivElement
+  const skillsBtn = document.querySelector("#skills-button") as HTMLButtonElement
+  const formContainer = document.querySelector('.form-container') as HTMLDivElement 
+  const skillsContainer = document.querySelector('.skills-container') as HTMLDivElement
+  const skills = document.querySelectorAll(".skills")
+  const inputName = document.querySelector("#nombre") as HTMLInputElement
+  const inputEmail = document.querySelector("#email") as HTMLInputElement
+  const nameSpan = document.querySelector('#name-span') as HTMLSpanElement
+  const emailSpan = document.querySelector('#email-span') as HTMLSpanElement
+  let name : string = ""
+  let email : string = ""
+  
+  // Mejorar esto - Escuchar al formulario con el evento submit
+  form.addEventListener("submit", (e) => {
+    e.preventDefault()
+
+    name = inputName.value
+    email = inputEmail.value
+
+    console.log(name, email);
+    formContainer?.classList.add("hidden")
+    skillsContainer?.classList.replace("hidden", "block")
+
+    nameSpan.textContent = name
+    emailSpan.textContent = email
+  })
+  
+  // Elegir los skills
+  let skillsArray: string[] = []
+
+  skills.forEach((skill) => {
+    skill.addEventListener("click", (e: any) => {
+      if(!e.target.classList.contains('bg-[#652CD1]') && !e.target.classList.contains('text-[#E5E7EB]')) {
+        e.target.classList.add('bg-[#652CD1]')
+        e.target.classList.add('text-[#E5E7EB]')
+
+        skillsArray.push(e.target.innerText)
+        console.log(skillsArray)
+      }
+
+      else if (e.target.classList.contains('bg-[#652CD1]') && e.target.classList.contains('text-[#E5E7EB]')) {
+        e.target.classList.remove('bg-[#652CD1]')
+        e.target.classList.remove('text-[#E5E7EB]')
+
+        const newSkills = skillsArray.filter(elem => elem !== e.target.innerText)
+
+        skillsArray = newSkills
+        console.log(skillsArray);
+      }
+    })
+  })
+
+  //Escuchar el botón de la sección de skills para finalmente mostrar los datos ingresados
+  skillsBtn.addEventListener('click', () => {
+    if (skillsArray.length === 0) return
+
+    skillsContainer?.classList.replace("block", "hidden")
+    infoContainer?.classList.replace("hidden", "block")
+
+    skillsArray.map(skill => {
+      const li = document.createElement("li") as HTMLLIElement
+      li.classList.add("text-[#E5E7EB]")
+      li.textContent = skill
+
+      topicsContainer.appendChild(li)
+    })
+
+    console.log(skillsArray);
+  })
+
+  console.log(skillsArray);
+</script>

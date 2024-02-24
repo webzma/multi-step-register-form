@@ -17,7 +17,7 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<main class="w-full h-screen grid place-items-center">
+		<main class="w-full h-screen flex justify-center items-center flex-col">
 			<div class="fixed z-0 h-[200px] w-[200px] lg:w-[200px] lg:h-[200px] rounded-full bg-[#652CD1] blur-[120px] opacity-50 left-0 top-0"></div>
 			<slot />
 			<div class="fixed z-0 h-[200px] w-[200px] lg:w-[200px] lg:h-[200px] rounded-full bg-[#652CD1] blur-[120px] opacity-50 right-0 bottom-0"></div>

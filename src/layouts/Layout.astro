@@ -18,8 +18,9 @@ const { title } = Astro.props;
 	</head>
 	<body>
 		<main class="w-full h-screen grid place-items-center">
+			<div class="fixed z-0 h-[200px] w-[200px] lg:w-[200px] lg:h-[200px] rounded-full bg-[#652CD1] blur-[120px] opacity-50 left-0 top-0"></div>
 			<slot />
-		</main>
+			<div class="fixed z-0 h-[200px] w-[200px] lg:w-[200px] lg:h-[200px] rounded-full bg-[#652CD1] blur-[120px] opacity-50 right-0 bottom-0"></div>
 	</body>
 </html>
 <style is:global>
@@ -38,16 +39,5 @@ const { title } = Astro.props;
 		font-family: system-ui, sans-serif;
 		background: #121826;
 		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
 	}
 </style>

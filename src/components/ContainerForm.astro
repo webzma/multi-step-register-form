@@ -49,6 +49,10 @@
 </div>
 
 <script>  
+
+  interface StepElement extends HTMLElement {
+    lastElementChild: HTMLElement & { classList: DOMTokenList };
+  }
   // Ojo este código JavaScript hay que tiparlo correctamente con TypeScript
   const form = document.querySelector("#form") as HTMLFormElement
   const topicsContainer = document.querySelector("#topics-container") as HTMLDivElement 
@@ -61,7 +65,7 @@
   const inputEmail = document.querySelector("#email") as HTMLInputElement
   const nameSpan = document.querySelector('#name-span') as HTMLSpanElement
   const emailSpan = document.querySelector('#email-span') as HTMLSpanElement
-  const steps : NodeListOf<Element>  = document.querySelectorAll('.step')
+  const steps: NodeListOf<StepElement> = document.querySelectorAll('.step');
 
   console.log(steps);
 
